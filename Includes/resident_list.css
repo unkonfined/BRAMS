@@ -1,0 +1,173 @@
+body {
+    background-color: #f7fafc; /* Light gray background */
+}
+
+.container {
+    max-width: 80%; /* Max width of the container */
+    margin: 0 auto; /* Center the container */
+}
+
+.shadow-md {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.rounded {
+    border-radius: 8px; /* Slightly rounded corners */
+}
+
+.p-6 {
+    padding: 24px; /* Padding inside the card */
+}
+
+.mb-4 {
+    margin-bottom: 16px; /* Bottom margin */
+}
+
+.text-xl {
+    font-size: 1.25rem; /* Font size */
+}
+
+.font-semibold {
+    font-weight: 600; /* Semi-bold font weight */
+}
+
+.bg-white {
+    background-color: #fff; /* White background */
+}
+
+.bg-gray-200 {
+    background-color: #edf2f7; /* Light gray background for table header */
+}
+
+.py-2 {
+    padding-top: 8px;
+    padding-bottom: 8px; /* Vertical padding */
+}
+
+.px-4 {
+    padding-left: 16px;
+    padding-right: 16px; /* Horizontal padding */
+}
+
+.border {
+    border: 1px solid #e2e8f0; /* Light gray border */
+}
+
+.rounded {
+    border-radius: 8px; /* Rounded corners */
+}
+
+.w-full {
+    width: 100%; /* Full width */
+}
+
+#search {
+    width: 100%; /* Full width of the search bar container */
+    max-width: 200px; /* Maximum width for the search bar */
+}
+
+.table th,
+.table td {
+    text-align: left; /* Left-align text in table cells */
+}
+
+.table th {
+    font-weight: 600; /* Semi-bold font weight for table headers */
+}
+
+.table td {
+    font-weight: 400; /* Regular font weight for table cells */
+}
+
+.table tr:nth-child(even) {
+    background-color: #f7fafc; /* Light gray background for even rows */
+}
+
+.table tr:hover {
+    background-color: #e2e8f0; /* Light gray background on row hover */
+}
+
+/* Responsive Design */
+
+/* For smaller screens */
+@media (max-width: 1024px) {
+    .container {
+        max-width: 95%; /* Expand container width for smaller screens */
+    }
+
+    .large-text {
+        font-size: 1.75rem; /* Slightly smaller title on smaller screens */
+    }
+
+    #search {
+        max-width: 150px; /* Adjust search bar width for smaller screens */
+    }
+
+    table {
+        font-size: 0.875rem; /* Slightly smaller text in tables for smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem; /* Reduce padding */
+        margin-top: 2rem; /* Add spacing on smaller screens */
+    }
+
+    .large-text {
+        font-size: 1.5rem; /* Smaller title */
+        text-align: center; /* Center title text */
+    }
+
+    .search-bar-width {
+        width: 100%; /* Search bar takes full width on smaller screens */
+        max-width: 100%; /* Ensure no max width */
+    }
+
+    .flex {
+        flex-direction: column; /* Stack elements vertically */
+        align-items: center; /* Center align items */
+    }
+
+    #search {
+        margin-bottom: 1rem; /* Add space below the search bar */
+    }
+
+    table {
+        font-size: 0.875rem; /* Reduce font size in the table */
+        overflow-x: auto; /* Allow horizontal scrolling for table */
+    }
+
+    /* Ensure that the table headers and data remain aligned */
+    .table thead, .table tbody {
+        display: block;
+    }
+
+    .table tbody {
+        max-height: 400px; /* Set max height for scrolling */
+        overflow-y: scroll; /* Scroll vertically */
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0.5rem; /* Further reduce padding */
+    }
+
+    .large-text {
+        font-size: 1.25rem; /* Further reduce title size */
+    }
+
+    .search-bar-width {
+        width: 100%; /* Search bar takes full width */
+    }
+
+    #search {
+        font-size: 0.875rem; /* Smaller search bar text */
+        padding: 0.5rem; /* Adjust padding */
+    }
+
+    table {
+        font-size: 0.75rem; /* Smaller table text */
+    }
+}

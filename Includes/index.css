@@ -1,0 +1,63 @@
+/* Custom styles for a more modern Gen Z look */
+body {
+    background-image: url('background/background_logo.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#loginForm {
+    position: absolute;
+    top: 50%; /* Vertically center */
+    left: 13%; /* Adjust this value to manually move the form horizontally */
+    transform: translateY(-40%); /* Corrects vertical centering */
+    width: 100%; /* You can adjust the width */
+    max-width: 400px; /* Ensures the form doesn't get too wide */
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px) rotate(1deg); /* Added a slight rotation on hover */
+    box-shadow: 0 20px 40px rgba(0, 128, 0, 0.3); /* Increased shadow intensity */
+}
+
+.input-field {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.input-field:focus {
+    border-color: #90ee90; /* Light green border */
+    box-shadow: 0 0 10px rgba(144, 238, 144, 0.5); /* Light green shadow */
+    transform: scale(1.05); /* Slight scale on focus for interactivity */
+}
+
+.loginButton {
+    background: linear-gradient(to right, #90ee90, #98fb98); /* Light green gradient */
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.loginButton:hover {
+    background: linear-gradient(to right, #98fb98, #90ee90); /* Light green gradient on hover */
+    transform: translateY(-5px); /* Moves the button upwards on hover */
+    box-shadow: 0 10px 20px rgba(144, 238, 144, 0.5); /* Adds a glow effect */
+}
+
+/* Custom styles for radio buttons */
+input[type="radio"] {
+    margin-right: 8px;
+    transform: scale(1.2); /* Slightly larger radio buttons */
+}
+
+label.inline-flex {
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.3s ease; /* Smooth transition for label color */
+}
+
+label.inline-flex:hover {
+    color: #90ee90; /* Change label color to light green on hover */
+}

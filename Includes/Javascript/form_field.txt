@@ -1,0 +1,44 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Validate PhilHealth ID to be exactly 12 digits
+    const philhealthIdInput = document.getElementById('philhealth_id');
+    philhealthIdInput.addEventListener('input', (event) => {
+        const value = event.target.value;
+        if (/^\d{0,12}$/.test(value)) {
+            event.target.value = value; // Allow only digits and up to 12 characters
+        } else {
+            event.target.value = value.slice(0, -1); // Remove last character if invalid
+        }
+    });
+
+    // Validate Contact Number to be exactly 11 digits
+    const contactNumberInput = document.getElementById('contact_number');
+    contactNumberInput.setAttribute('placeholder', '09xxxxxxxxx'); // Hint for phone number format
+
+    contactNumberInput.addEventListener('input', (event) => {
+        let value = event.target.value;
+        // Remove all non-numeric characters
+        value = value.replace(/\D/g, '');
+
+        // Ensure it is exactly 11 digits
+        if (value.length > 11) {
+            value = value.slice(0, 11); // Limit to 11 digits
+        }
+        event.target.value = value;
+    });
+
+    // Validate Emergency Phone Number to be exactly 11 digits
+    const emergencyPhoneInput = document.getElementById('emergency_phone');
+    emergencyPhoneInput.setAttribute('placeholder', '09xxxxxxxxx'); // Hint for phone number format
+
+    emergencyPhoneInput.addEventListener('input', (event) => {
+        let value = event.target.value;
+        // Remove all non-numeric characters
+        value = value.replace(/\D/g, '');
+
+        // Ensure it is exactly 11 digits
+        if (value.length > 11) {
+            value = value.slice(0, 11); // Limit to 11 digits
+        }
+        event.target.value = value;
+    });
+});

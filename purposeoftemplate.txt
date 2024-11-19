@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRAMS - Efficient Barangay Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <?php include 'Includes/header.php'; ?>
+    <?php include 'Includes/navbar.php'; ?>
+
+    <div class="container mx-auto mt-8 min-h-screen flex flex-col">
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="text-white p-4">
+                <a href="print_template.php?id=<?php echo $_GET['id']; ?>" class="btn bg-green-600 text-white font-semibold py-2 px-4 rounded float-start">Back</a>
+            </div>
+            <div class="p-6">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold">Purpose Of Document</h2>
+                </div>
+                <div class="menu grid grid-cols-2 gap-4 text-center">
+                    <!-- PHP Logic to Generate the Purposes Dynamically with Buttons -->
+                    <?php
+                    $document = $_GET['document'] ?? '';
+                    $residentId = $_GET['id'] ?? '';
+
+                    function printDocument($url, $residentId, $label) {
+                        echo "<a href=\"$url?resident_id=$residentId\" target=\"_blank\" class=\"btn bg-green-500 text-white font-semibold py-2 px-4 rounded hover:bg-green-700\">
+                                <span>".htmlspecialchars($label)."</span>
+                              </a>";
+                    }
+
+                    if ($document == 'certofresidency') {
+                        printDocument('Includes\printable\residency.php?purpose=Renewal of PWD ID', $residentId, 'Renewal of PWD ID');
+                        printDocument('Includes\printable\residency.php?purpose=Renewal of Senior ID', $residentId, 'Renewal of Senior ID');
+                        printDocument('Includes\printable\residency.php?purpose=Scholarship Requirement', $residentId, 'Scholarship Requirement');
+                    } elseif ($document == 'brgyclearance') {
+                        printDocument('Includes\printable\brgy_clearance.php?purpose=Loan', $residentId, 'Loan');
+                        printDocument('Includes\printable\brgy_clearance.php?purpose=Bank', $residentId, 'Bank');
+                        printDocument('Includes\printable\brgy_clearance.php?purpose=Work Immersion', $residentId, 'Work Immersion');
+                        printDocument('Includes\printable\brgy_clearance.php?purpose=TIN ID', $residentId, 'TIN ID');
+                        printDocument('Includes\printable\brgy_clearance.php?purpose=Postal ID', $residentId, 'Postal ID');
+                        printDocument('Includes\printable\brgy_clearance.php?purpose=Philsys ID', $residentId, 'Philsys ID');
+                    } elseif ($document == 'certification') {
+                        printDocument('certification.php?purpose=1st Time Job Seeker', $residentId, '1st Time Job Seeker');
+                        printDocument('certification.php?purpose=Educational Assistance', $residentId, 'Educational Assistance');
+                        printDocument('certification.php?purpose=Scholarship', $residentId, 'Scholarship');
+                        printDocument('certification.php?purpose=Comelec Registraton', $residentId, 'Comelec Registraton');
+                        printDocument('certification.php?purpose=Applying Senior Citizen ID', $residentId, 'Applying Senior Citizen ID');
+                        printDocument('certification.php?purpose=Applying for CENECO', $residentId, 'Applying for CENECO');
+                    } elseif ($document == 'certofindigency') {
+                        printDocument('cert_of_indigency.php?purpose=Educational Assistance', $residentId, 'Educational Assistance');
+                        printDocument('cert_of_indigency.php?purpose=School Requirement', $residentId, 'School Requirement');
+                        printDocument('cert_of_indigency.php?purpose=Medical Assistance', $residentId, 'Medical Assistance');
+                        printDocument('cert_of_indigency.php?purpose=Burial Assistance', $residentId, 'Burial Assistance');
+                        printDocument('cert_of_indigency.php?purpose=Financial Assistance', $residentId, 'Financial Assistance');
+                    } elseif ($document == 'businessclosure') {
+                        printDocument('business_closure.php?purpose=Business Closure', $residentId, 'Business Closure');
+                    } else {
+                        echo "Invalid document type selected.";
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?php include 'Includes/footer.php'; ?> <!-- Include the footer file -->
+</body>
+</html>

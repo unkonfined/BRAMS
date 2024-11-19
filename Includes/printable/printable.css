@@ -1,0 +1,201 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+/* Form styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Logo and Banner */
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: solid;
+    border-color: #143A1F;
+}
+
+/* Apply Times New Roman only to BARANGAY CLEARANCE title */
+.barangay-title {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/* Times New Roman for specific classes */
+.logo-text, .officers {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.officers {
+    font-size: 0.9rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+    color: black;
+    text-align: center;
+    width: 400px;
+    float: left;
+    border-right-style: solid;
+    border-color: #143A1F;
+}
+
+.summary {
+    font-size: 1.3rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 30px;
+    color: black;
+    text-align: center;
+    width: calc(100% - 420px);
+    float: right;
+}
+
+.left-logo {
+    width: 195px;
+    margin-left: 130px;
+}
+
+.logo img {
+    max-width: 200px;
+    height: auto;
+}
+
+.logo-text {
+    flex-grow: 1;
+    text-align: center;
+    margin-top: 30px;
+    margin-right: 120px;
+    color: #1E90FF; /* Vibrant blue */
+}
+
+.logo-text h4 {
+    font-weight: bold; /* Make h4 bold */
+    margin: 0; /* Remove space around h4 */
+}
+
+.logo-text h5 {
+    margin: 0; /* Remove space around h5 */
+    line-height: 1.1; /* Adjust line-height for closer stacking */
+}
+
+.logo-text h2 {
+    margin-top: 10px;
+}
+
+/* Footer styles */
+.footer {
+    text-align: right;
+    font-size: 0.9rem;
+    margin-top: 40px;
+    margin-right: 20px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Centered large logo within the clearfix div */
+.centered-logo-wrapper {
+    position: relative;
+    text-align: center;
+}
+
+.centered-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1000px;
+    height: 1100px;
+    opacity: 0.2;
+    z-index: 0;
+}
+
+/* Centered logo wrapper with officer and summary containers */
+.clearfix.centered-logo-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    position: relative;
+    height: 1100px; /* Set height to 800px */
+}
+
+/* Background logo styling */
+.clearfix.centered-logo-wrapper:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 900px;
+    background-image: url('barangay8logo.png'); /* Background logo */
+    background-size: contain; /* Keeps aspect ratio */
+    background-repeat: no-repeat;
+    opacity: 0.1; /* Adjust opacity here */
+    pointer-events: none; /* Allows content to be interactable */
+    z-index: 0; /* Places the background behind content */
+}
+
+/* Content over the logo */
+.content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Ensure layout stays intact during print */
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        margin-top: 0;
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+
+    /* Force the centered logo background to appear in print */
+    .clearfix.centered-logo-wrapper:before {
+        content: "";
+        position: absolute;
+        top: 10%; /* Adjust the top position to move the logo vertically */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1100px;
+        height: 1100px;
+        background-image: url('barangay8logo.png'); /* Background logo */
+        background-size: contain; /* Keeps aspect ratio */
+        background-repeat: no-repeat;
+        opacity: 0.1; /* Adjust opacity for print */
+        pointer-events: none; /* Allow content to be interactable */
+        z-index: 0; /* Keeps logo behind content */
+    }
+
+    /* Ensure all content stays above the background logo */
+    .content {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Optional: Remove box shadow for print */
+    body {
+        box-shadow: none;
+    }
+
+    /* Ensure background logo is printed with exact colors */
+    .clearfix.centered-logo-wrapper:before {
+        -webkit-print-color-adjust: exact; /* Forces print of background images in WebKit browsers */
+        print-color-adjust: exact; /* Forces print of background images */
+    }
+}

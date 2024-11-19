@@ -1,0 +1,116 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    margin-top: 20px;
+    padding: 0 15px; /* Add horizontal padding to prevent overflow */
+}
+
+.card { 
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.btn-primary {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #45a049;
+}
+
+/* Logo and Banner */
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    overflow: hidden; /* Hide overflow on smaller screens */
+}
+
+.banner-text {
+    font-size: 1.5rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #D8F1B9;
+    padding: 10px;
+    color: black;
+    text-align: center;
+}
+
+.logo img {
+    max-width: 100px;
+    height: auto;
+}
+
+.logo-text {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.logo-text h2 {
+    margin-top: 10px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .logo img {
+        max-width: 80px;
+    }
+
+    .logo-text h2 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .logo img {
+        max-width: 60px;
+    }
+
+    .logo-text h2 {
+        font-size: 1rem;
+    }
+
+    /* Adjust padding for smaller screens */
+    .container {
+        padding: 0 10px;
+    }
+
+    /* Adjust margin for smaller screens */
+    .form-group {
+        margin-bottom: 15px;
+    }
+}
+
+/* Additional styles for left and right logos */
+.logo .left-logo,
+.logo .right-logo {
+    max-width: 30%; /* Adjust the max-width as needed */
+    height: auto; /* This ensures the image maintains its aspect ratio */
+}
