@@ -239,7 +239,7 @@
 
 <!-- Include the household form submission script -->
 <!-- <script src="Includes/Javascript/household_form.js" defer></script> -->
-<script src="firebase-household.js" defer></script>
+<script src="hosuehold-firebase.js" defer></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
