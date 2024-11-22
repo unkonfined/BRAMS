@@ -100,7 +100,7 @@
         </div>
     </div>
 
-    <!-- Popup Container -->
+    <!-- Popup Container
     <div id="popup" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
             <h3 class="text-xl font-bold text-gray-800 mb-4">Additional Information</h3>
@@ -144,6 +144,6 @@
                 showPopup(); // Show the popup
             });
         });
-    </script>
+    </script> -->
 </body>
 </html>
