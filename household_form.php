@@ -22,6 +22,9 @@
     }
 
     // Populate the Relationship to Household Head dropdown
+    populateDropdown('suffix', [
+        "Mr.", "Mrs.", "Ms.", "Dr.", "Prof.", "Hon."
+    ]);
     populateDropdown('rhh', [
         "Father", "Mother", "Son", "Daughter", "Brother", "Sister", 
         "Grandfather", "Grandmother", "Uncle", "Aunt", "Cousin", 
@@ -89,6 +92,12 @@
                     <div>
                         <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name *</label>
                         <input type="text" id="last_name" name="last_name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                    </div>
+                    <div>
+                        <label for="suffix" class="block text-sm font-medium text-gray-700">Suffix</label>
+                        <select id="suffix" name="suffix" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option>Select Suffix</option>
+                        </select>
                     </div>
                     <div>
                         <label for="rhh" class="block text-sm font-medium text-gray-700">Relationship to Household Head</label>
@@ -246,46 +255,51 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search');
     const tableBody = document.getElementById('residents-list');
 
+    // Firebase reference for Residents and Selected Members
+    const database = firebase.database();
+    const residentsRef = database.ref('Residents');
+    const selectedMembersRef = database.ref('SelectedMembers'); // Add a new node for storing selected members
+
     // Automatically load residents when the page loads
     loadResidents();
 
     function loadResidents() {
-        const database = firebase.database().ref('Residents'); // Changed to 'Residents'
-        let counter = 1; // This is no longer used for ID
+        residentsRef.once('value')
+            .then(snapshot => {
+                const residents = snapshot.val();
+                tableBody.innerHTML = ''; // Clear any existing data
 
-        database.once('value').then(function(snapshot) {
-            const residents = snapshot.val();
-            tableBody.innerHTML = ''; // Clear any existing data
+                for (let key in residents) {
+                    const resident = residents[key];
+                    const row = document.createElement('tr');
+                    row.dataset.id = key; // Store the unique ID in a data attribute
 
-            for (let key in residents) {
-                const resident = residents[key];
-                const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="py-2 px-4 text-sm font-medium text-gray-900">
+                            <input type="checkbox" class="checkbox-input" data-id="${key}">
+                        </td>
+                        <td class="py-2 px-4 text-sm text-gray-500">${resident.first_name || ''}</td>
+                        <td class="py-2 px-4 text-sm text-gray-500">${resident.middle_name || ''}</td>
+                        <td class="py-2 px-4 text-sm text-gray-500">${resident.last_name || ''}</td>
+                    `;
 
-                row.innerHTML = `
-                    <td class="py-2 px-4 text-sm font-medium text-gray-900">
-                        <input type="checkbox" class="checkbox-input">
-                    </td>
-                    <td class="py-2 px-4 text-sm text-gray-500">${resident.first_name || ''}</td>
-                    <td class="py-2 px-4 text-sm text-gray-500">${resident.middle_name || ''}</td>
-                    <td class="py-2 px-4 text-sm text-gray-500">${resident.last_name || ''}</td>
-                `;
-
-                tableBody.appendChild(row);
-            }
-        }).catch(function(error) {
-            console.error('Error loading residents:', error);
-        });
+                    tableBody.appendChild(row);
+                }
+            })
+            .catch(error => {
+                console.error('Error loading residents:', error);
+            });
     }
 
     searchInput.addEventListener('input', () => {
         const searchTerm = searchInput.value.toLowerCase();
         const tableRows = tableBody.querySelectorAll('tr');
-        
+
         tableRows.forEach(row => {
             const cells = row.querySelectorAll('td');
-            const firstName = cells[1].textContent.toLowerCase();
-            const middleName = cells[2].textContent.toLowerCase();
-            const lastName = cells[3].textContent.toLowerCase();
+            const firstName = cells[1]?.textContent.toLowerCase() || '';
+            const middleName = cells[2]?.textContent.toLowerCase() || '';
+            const lastName = cells[3]?.textContent.toLowerCase() || '';
             if (firstName.includes(searchTerm) || middleName.includes(searchTerm) || lastName.includes(searchTerm)) {
                 row.style.display = '';
             } else {
@@ -294,23 +308,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Show or hide "No. of Months" field based on selected Renter option
-        const renterSelect = document.getElementById('renter');
-        const renterMonthsContainer = document.getElementById('renter_months_container');
+    // Selection handling
+    tableBody.addEventListener('change', event => {
+        if (event.target.classList.contains('checkbox-input')) {
+            const checkbox = event.target;
+            const uniqueId = checkbox.dataset.id;
 
-        renterSelect.addEventListener('change', () => {
-            const selectedValue = renterSelect.value;
-
-            // Show "No. of Months" input if "Yes" is selected
-            if (selectedValue === 'Renter_Yes') {
-                renterMonthsContainer.classList.remove('hidden');
+            if (checkbox.checked) {
+                // Add selected member to Firebase
+                residentsRef.child(uniqueId).once('value')
+                    .then(snapshot => {
+                        const selectedMember = snapshot.val();
+                        if (selectedMember) {
+                            selectedMembersRef.child(uniqueId).set(selectedMember)
+                                .then(() => {
+                                    console.log('Member added successfully:', selectedMember);
+                                })
+                                .catch(error => {
+                                    console.error('Error adding member:', error);
+                                });
+                        }
+                    });
             } else {
-                renterMonthsContainer.classList.add('hidden');
+                // Remove deselected member from Firebase
+                selectedMembersRef.child(uniqueId).remove()
+                    .then(() => {
+                        console.log('Member removed successfully:', uniqueId);
+                    })
+                    .catch(error => {
+                        console.error('Error removing member:', error);
+                    });
             }
-        });
+        }
+    });
 
-        });
+    // Show or hide "No. of Months" field based on selected Renter option
+    const renterSelect = document.getElementById('renter');
+    const renterMonthsContainer = document.getElementById('renter_months_container');
+
+    renterSelect.addEventListener('change', () => {
+        const selectedValue = renterSelect.value;
+
+        // Show "No. of Months" input if "Yes" is selected
+        if (selectedValue === 'Renter_Yes') {
+            renterMonthsContainer.classList.remove('hidden');
+        } else {
+            renterMonthsContainer.classList.add('hidden');
+        }
+    });
+});
 </script>
+
 
 </body>
 </html>

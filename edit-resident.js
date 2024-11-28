@@ -41,6 +41,9 @@ database.ref('Residents/' + residentId).once('value').then((snapshot) => {
     document.getElementById('place_of_birth').value = residentData.place_of_birth || '';
     document.getElementById('date_of_birth').value = residentData.date_of_birth || '';
     
+    // Handle the suffix
+    document.getElementById('suffix').value = residentData.suffix || '';
+
     // Handle radio buttons for gender
     if (residentData.gender) {
         document.querySelector(`input[name="gender"][value="${residentData.gender}"]`).checked = true;
@@ -90,6 +93,9 @@ document.getElementById('editForm').addEventListener('submit', function(event) {
     const emergencyPhone = document.getElementById('emergency_phone').value;
     const relationship = document.getElementById('relationship').value;
 
+    // Retrieve the suffix value from the form
+    const suffix = document.getElementById('suffix').value;
+
     // Update all data into a single Residents table
     database.ref('Residents/' + residentId).update({
         first_name: firstName,
@@ -111,7 +117,8 @@ document.getElementById('editForm').addEventListener('submit', function(event) {
         contact_number: contactNumber,
         emergency_name: emergencyName,
         emergency_phone: emergencyPhone,
-        relationship: relationship
+        relationship: relationship,
+        suffix: suffix // Add the suffix to the update
     }).then(() => {
         console.log('Resident information updated successfully.');
         document.getElementById('successPopup').classList.remove('hidden');

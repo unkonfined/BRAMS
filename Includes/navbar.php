@@ -118,7 +118,7 @@
                 <a href="registration_form.php" class="nav-link">REGISTRATION FORM</a>
                 <a href="household_form.php" class="nav-link">HOUSEHOLD FORM</a>
                 <a href="resident_list.php" class="nav-link">LIST OF RESIDENTS</a>
-                <a href="household-profile.html" class="nav-link">HOUSEHOLD PROFILE</a>
+                <a href="household_profile.php" class="nav-link">HOUSEHOLD PROFILE</a>
             </div>
         </div>
     </div>

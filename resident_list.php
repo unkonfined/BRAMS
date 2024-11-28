@@ -65,6 +65,7 @@
                                                 <a href="print_template.php?id=${key}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-100" role="menuitem">Print</a>
                                                 <a href="edit_form.php?id=${key}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100" role="menuitem">Edit</a>
                                                 <button onclick="archiveResident('${key}')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-100" role="menuitem">Archive</button>
+                                                <button onclick="showInfoPopup('${key}')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-yellow-100" role="menuitem">Info</button>
                                             </div>
                                         </div>
                                     </div>
@@ -77,6 +78,7 @@
                                 first_name: resident.first_name || '',
                                 middle_name: resident.middle_name || '',
                                 last_name: resident.last_name || '',
+                                suffix: resident.suffix || '', // Added suffix here
                                 appellation: resident.appellation || '',
                                 place_of_birth: resident.place_of_birth || '',
                                 date_of_birth: resident.date_of_birth || '',
@@ -166,7 +168,78 @@
                 XLSX.writeFile(workbook, fileName);
             }
         });
+
+        function showInfoPopup(residentId) {
+    const database = firebase.database().ref('Residents/' + residentId);
+    database.once('value').then(snapshot => {
+        const resident = snapshot.val();
+
+        // Create the popup container
+        const popup = document.createElement('div');
+        popup.classList.add('fixed', 'inset-0', 'bg-gray-800', 'bg-opacity-50', 'flex', 'items-center', 'justify-center', 'z-50');
+
+        // Popup content
+        const content = document.createElement('div');
+        content.classList.add('bg-white', 'p-6', 'rounded-lg', 'w-1/3');
+        content.innerHTML = `
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold">Information of the Resident</h3>
+                <button 
+                    onclick="closePopup()" 
+                    style="
+                        width: 2rem; 
+                        height: 2rem; 
+                        border-radius: 50%; 
+                        background-color: #f87171; 
+                        color: white; 
+                        border: none; 
+                        font-size: 1.25rem; 
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        cursor: pointer;
+                    " 
+                    class="hover:bg-red-600 focus:outline-none">
+                    &times;
+                </button>
+            </div>
+            <p><strong>Name:</strong> ${resident.first_name} ${resident.middle_name} ${resident.last_name} ${resident.suffix || ''}</p>
+            <p><strong>Appellation:</strong> ${resident.appellation || ''}</p>
+            <p><strong>Place of Birth:</strong> ${resident.place_of_birth || ''}</p>
+            <p><strong>Date of Birth:</strong> ${resident.date_of_birth || ''}</p>
+            <p><strong>Gender:</strong> ${resident.gender || ''}</p>
+            <p><strong>Nationality:</strong> ${resident.nationality || ''}</p>
+            <p><strong>Civil Status:</strong> ${resident.civil_status || ''}</p>
+            <p><strong>PhilHealth ID:</strong> ${resident.philhealth_id || ''}</p>
+            <p><strong>PhilHealth Membership:</strong> ${resident.philhealth_membership || ''}</p>
+            <p><strong>WRA:</strong> ${resident.wra || ''}</p>
+            <p><strong>Educational Attainment:</strong> ${resident.educational_attainment || ''}</p>
+            <p><strong>Employment Status:</strong> ${resident.employment_status || ''}</p>
+            <p><strong>Remark (NS):</strong> ${resident.remark_NS || ''}</p>
+            <p><strong>Resident Since:</strong> ${resident.resident_since || ''}</p>
+            <p><strong>Contact Number:</strong> ${resident.contact_number || ''}</p>
+            <p><strong>Emergency Contact:</strong> ${resident.emergency_name || ''} - ${resident.emergency_phone || ''}</p>
+            <p><strong>Relationship:</strong> ${resident.relationship || ''}</p>
+        `;
+
+        // Append popup content to popup
+        popup.appendChild(content);
+        document.body.appendChild(popup);
+    }).catch(error => {
+        console.error('Error fetching resident info:', error);
+    });
+}
+
+// Close popup function
+function closePopup() {
+    const popup = document.querySelector('.fixed');
+    if (popup) {
+        popup.remove();
+    }
+}
+
     </script>
+
 </head>
 <body class="bg-gray-100">
     <?php include 'Includes/header.php'; ?>

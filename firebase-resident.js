@@ -14,7 +14,6 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// Form submission
 document.getElementById('registrationForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent default form submission
 
@@ -23,6 +22,7 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     const middleName = document.getElementById('middle_name').value;
     const lastName = document.getElementById('last_name').value;
     const appellation = document.getElementById('appellation').value;
+    const suffix = document.getElementById('suffix').value; // Added suffix
     const placeOfBirth = document.getElementById('place_of_birth').value;
     const dateOfBirth = document.getElementById('date_of_birth').value;
     const gender = document.querySelector('input[name="gender"]:checked').value;
@@ -81,6 +81,7 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         middle_name: middleName,
         last_name: lastName,
         appellation: appellation,
+        suffix: suffix, // Included suffix here
         place_of_birth: placeOfBirth,
         date_of_birth: dateOfBirth,
         gender: gender,
